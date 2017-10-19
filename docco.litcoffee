@@ -229,13 +229,19 @@ user-specified options.
       extension:  null
       languages:  {}
       marked:     null
+      configure:  null
 
 **Configure** this particular run of Docco. We might use a passed-in external
 template, or one of the built-in **layouts**. We only attempt to process
 source files for languages for which we have definitions.
 
     configure = (options) ->
-      config = _.extend {}, defaults, _.pick(options, _.keys(defaults)...)
+      configureFile = path.join process.cwd(), options.configure
+
+      try
+        configureOptions =  JSON.parse(fs.readFileSync(configureFile,'utf-8'))
+
+      config = _.extend {}, defaults, _.pick(options, _.keys(defaults)...), _.pick(configureOptions, _.keys(defaults)...)
 
       config.languages = buildMatchers config.languages
 
@@ -337,6 +343,8 @@ Parse options using [Commander](https://github.com/visionmedia/commander.js).
         .option('-t, --template [file]',  'use a custom .jst template', c.template)
         .option('-e, --extension [ext]',  'assume a file extension for all inputs', c.extension)
         .option('-m, --marked [file]',    'use custom marked options', c.marked)
+        .option('-C, --configure [file]',    'use custom configure file', c.configure)
+
         .parse(args)
         .name = "docco"
       if commander.args.length

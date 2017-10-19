@@ -1,5 +1,5 @@
 {
-  "name": "docco",
+  "name": "docco-enhance",
   "description": "The Quick and Dirty Literate Programming Documentation Generator",
   "keywords": [
     "documentation",
@@ -8,16 +8,28 @@
     "literate",
     "coffeescript"
   ],
-  "author": "Jeremy Ashkenas",
-  "version": "0.7.0",
+  "author": "lisfan <goolisfan@gmail.com> (https://www.npmjs.com/~lisfan)",
+  "version": "1.0.0-rc.0",
   "license": "MIT",
   "scripts": {
-    "build": "coffee -c docco.litcoffee"
+    "build": "coffee -c docco.litcoffee",
+    "pub-prepare": "git pull && npm run build && npm version prerelease && git add . && git commit -m 'updata: update version' && git push",
+    "prepublishOnly": "npm run pub-prepare",
+    "pub-n": "npm publish --tag n",
+    "pub-a": "npm publish --tag a",
+    "pub-b": "npm publish --tag b",
+    "pub-rc": "npm publish --tag rc",
+    "pub-s": "npm publish --tag stable",
+    "pub": "npm publish"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jashkenas/docco.git"
+    "url": "git+https://github.com/lisfan/docco.git"
   },
+  "bugs": {
+    "url": "https://github.com/lisfan/logger/issues"
+  },
+  "homepage": "https://github.com/lisfan/logger#readme",
   "engines": {
     "node": ">=0.2.0"
   },

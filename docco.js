@@ -256,16 +256,24 @@
     css: null,
     extension: null,
     languages: {},
-    marked: null
+    marked: null,
+    configure: null
   };
 
   // **Configure** this particular run of Docco. We might use a passed-in external
   // template, or one of the built-in **layouts**. We only attempt to process
   // source files for languages for which we have definitions.
   configure = function(options) {
-    var config, dir;
-    config = _.extend({}, defaults, _.pick(options, ..._.keys(defaults)));
+    var config, configureFile, configureOptions, dir;
+    // #      configureFile = path.join process.cwd(), '.docco.json'
+    configureFile = path.join(process.cwd(), options.configure);
+    try {
+      configureOptions = JSON.parse(fs.readFileSync(configureFile, 'utf-8'));
+    } catch (error1) {}
+    console.log('configure', configureOptions);
+    config = _.extend({}, defaults, _.pick(options, ..._.keys(defaults)), _.pick(configureOptions, ..._.keys(defaults)));
     config.languages = buildMatchers(config.languages);
+    console.log(configureOptions);
     // The user is able to override the layout file used with the `--template` parameter.
     // In this case, it is also neccessary to explicitly specify a stylesheet file.
     // These custom templates are compiled exactly like the predefined ones, but the `public` folder
@@ -364,7 +372,7 @@
   run = function(args = process.argv) {
     var c;
     c = defaults;
-    commander.version(version).usage('[options] files').option('-L, --languages [file]', 'use a custom languages.json', _.compose(JSON.parse, fs.readFileSync)).option('-l, --layout [name]', 'choose a layout (parallel, linear or classic)', c.layout).option('-o, --output [path]', 'output to a given folder', c.output).option('-c, --css [file]', 'use a custom css file', c.css).option('-t, --template [file]', 'use a custom .jst template', c.template).option('-e, --extension [ext]', 'assume a file extension for all inputs', c.extension).option('-m, --marked [file]', 'use custom marked options', c.marked).parse(args).name = "docco";
+    commander.version(version).usage('[options] files').option('-L, --languages [file]', 'use a custom languages.json', _.compose(JSON.parse, fs.readFileSync)).option('-l, --layout [name]', 'choose a layout (parallel, linear or classic)', c.layout).option('-o, --output [path]', 'output to a given folder', c.output).option('-c, --css [file]', 'use a custom css file', c.css).option('-t, --template [file]', 'use a custom .jst template', c.template).option('-e, --extension [ext]', 'assume a file extension for all inputs', c.extension).option('-m, --marked [file]', 'use custom marked options', c.marked).option('-C, --configure [file]', 'use custom configure file', c.configure).parse(args).name = "docco";
     if (commander.args.length) {
       return document(commander);
     } else {
