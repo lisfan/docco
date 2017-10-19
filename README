@@ -1,31 +1,17 @@
- ____
-/\  _`\
-\ \ \/\ \        ___         ___         ___         ___
- \ \ \ \ \      / __`\      /'___\      /'___\      / __`\
-  \ \ \_\ \    /\ \ \ \    /\ \__/     /\ \__/     /\ \ \ \
-   \ \____/    \ \____/    \ \____\    \ \____\    \ \____/
-    \/___/      \/___/      \/____/     \/____/     \/___/
+forked from [jashkenas/docco](http://jashkenas.github.com/docco/)
 
+enhance features
+- ignore block comments in code, something like start with `/*` or `/**`
+- cli support --configure option, read configuration file to set something like output options etc
 
-Docco is a quick-and-dirty, hundred-line-long, literate-programming-style
-documentation generator. For more information, see:
+thanks for use!
 
-http://jashkenas.github.com/docco/
+==========
 
-Installation:
+来自[jashkenas / docco]（http://jashkenas.github.com/docco/）
 
-  sudo npm install -g docco
+增强功能
+- 忽略代码中的块注释，像`/ *`或`/ **`开头的
+- cli支持 `--configure` 选项，读取配置文件来设置输出选项，如输出目录`output`选项等
 
-Usage: docco [options] FILES
-
-  Options:
-
-    -h, --help             output usage information
-    -V, --version          output the version number
-    -l, --layout [layout]  choose a built-in layouts (parallel, linear)
-    -c, --css [file]       use a custom css file
-    -o, --output [path]    use a custom output path
-    -t, --template [file]  use a custom .jst template
-    -e, --extension [ext]  use the given file extension for all inputs
-    -L, --languages [file] use a custom languages.json
-    -m, --marked [file]    use custom marked options
+谢谢使用！
