@@ -5,3 +5,13 @@ enhance features
 - cli support --configure option, read configuration file to set something like output options etc
 
 thanks for use!
+
+==========
+
+来自[jashkenas / docco]（http://jashkenas.github.com/docco/）
+
+增强功能
+- 忽略代码中的块注释，像`/ *`或`/ **`开头的
+- cli支持 `--configure` 选项，读取配置文件来设置输出选项，如输出目录`output`选项等
+
+谢谢使用！
