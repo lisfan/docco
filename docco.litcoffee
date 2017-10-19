@@ -143,6 +143,8 @@ normal below.
           save() if hasCode
           docsText += (line = line.replace(lang.commentMatcher, '')) + '\n'
           save() if /^(---+|===+)$/.test line
+        else if line.match(lang.ignoreBlockComments)
+          continue
         else
           hasCode = yes
           codeText += line + '\n'
@@ -296,6 +298,8 @@ Does the line begin with a comment?
 Ignore [hashbangs](http://en.wikipedia.org/wiki/Shebang_%28Unix%29) and interpolations...
 
         l.commentFilter = /(^#![/]|^\s*#\{)/
+
+        l.ignoreBlockComments = /\s*\/\*|\s*\*|\s*\*\//
       languages
     languages = buildMatchers languages
 
