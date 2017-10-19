@@ -265,15 +265,12 @@
   // source files for languages for which we have definitions.
   configure = function(options) {
     var config, configureFile, configureOptions, dir;
-    // #      configureFile = path.join process.cwd(), '.docco.json'
     configureFile = path.join(process.cwd(), options.configure);
     try {
       configureOptions = JSON.parse(fs.readFileSync(configureFile, 'utf-8'));
     } catch (error1) {}
-    console.log('configure', configureOptions);
     config = _.extend({}, defaults, _.pick(options, ..._.keys(defaults)), _.pick(configureOptions, ..._.keys(defaults)));
     config.languages = buildMatchers(config.languages);
-    console.log(configureOptions);
     // The user is able to override the layout file used with the `--template` parameter.
     // In this case, it is also neccessary to explicitly specify a stylesheet file.
     // These custom templates are compiled exactly like the predefined ones, but the `public` folder
