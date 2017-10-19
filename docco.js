@@ -265,8 +265,8 @@
   // source files for languages for which we have definitions.
   configure = function(options) {
     var config, configureFile, configureOptions, dir;
-    configureFile = path.join(process.cwd(), options.configure);
     try {
+      configureFile = path.join(process.cwd(), options.configure);
       configureOptions = JSON.parse(fs.readFileSync(configureFile, 'utf-8'));
     } catch (error1) {}
     config = _.extend({}, defaults, _.pick(options, ..._.keys(defaults)), _.pick(configureOptions, ..._.keys(defaults)));

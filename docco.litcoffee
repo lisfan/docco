@@ -236,9 +236,8 @@ template, or one of the built-in **layouts**. We only attempt to process
 source files for languages for which we have definitions.
 
     configure = (options) ->
-      configureFile = path.join process.cwd(), options.configure
-
       try
+        configureFile = path.join process.cwd(), options.configure
         configureOptions =  JSON.parse(fs.readFileSync(configureFile,'utf-8'))
 
       config = _.extend {}, defaults, _.pick(options, _.keys(defaults)...), _.pick(configureOptions, _.keys(defaults)...)
