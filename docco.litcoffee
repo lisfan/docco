@@ -143,6 +143,8 @@ normal below.
           save() if hasCode
           docsText += (line = line.replace(lang.commentMatcher, '')) + '\n'
           save() if /^(---+|===+)$/.test line
+        else if line.match(lang.ignoreBlockComments)
+          continue
         else
           hasCode = yes
           codeText += line + '\n'
@@ -227,13 +229,18 @@ user-specified options.
       extension:  null
       languages:  {}
       marked:     null
+      configure:  null
 
 **Configure** this particular run of Docco. We might use a passed-in external
 template, or one of the built-in **layouts**. We only attempt to process
 source files for languages for which we have definitions.
 
     configure = (options) ->
-      config = _.extend {}, defaults, _.pick(options, _.keys(defaults)...)
+      try
+        configureFile = path.join process.cwd(), options.configure
+        configureOptions =  JSON.parse(fs.readFileSync(configureFile,'utf-8'))
+
+      config = _.extend {}, defaults, _.pick(options, _.keys(defaults)...), _.pick(configureOptions, _.keys(defaults)...)
 
       config.languages = buildMatchers config.languages
 
@@ -296,6 +303,8 @@ Does the line begin with a comment?
 Ignore [hashbangs](http://en.wikipedia.org/wiki/Shebang_%28Unix%29) and interpolations...
 
         l.commentFilter = /(^#![/]|^\s*#\{)/
+
+        l.ignoreBlockComments = /\s*\/\*|\s*\*|\s*\*\//
       languages
     languages = buildMatchers languages
 
@@ -333,6 +342,8 @@ Parse options using [Commander](https://github.com/visionmedia/commander.js).
         .option('-t, --template [file]',  'use a custom .jst template', c.template)
         .option('-e, --extension [ext]',  'assume a file extension for all inputs', c.extension)
         .option('-m, --marked [file]',    'use custom marked options', c.marked)
+        .option('-C, --configure [file]',    'use custom configure file', c.configure)
+
         .parse(args)
         .name = "docco"
       if commander.args.length
