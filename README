@@ -2,6 +2,6 @@ forked from [jashkenas/docco](http://jashkenas.github.com/docco/)
 
 enhance features
 - ignore block comments in code, something like start with `/*` or `/**`
-- cli support --configure option, read configuration file to set something to output options etc
+- cli support --configure option, read configuration file to set something like output options etc
 
 thanks for use!
