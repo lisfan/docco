@@ -9,7 +9,7 @@
     "coffeescript"
   ],
   "author": "lisfan <goolisfan@gmail.com> (https://www.npmjs.com/~lisfan)",
-  "version": "1.0.0-rc.3",
+  "version": "1.0.0",
   "license": "MIT",
   "scripts": {
     "build": "coffee -c docco.litcoffee",
